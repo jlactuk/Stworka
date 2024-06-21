@@ -1,0 +1,112 @@
+
+/* Объявление переменных */
+:root {
+    --main-color: #3579F5;
+    --hover-main-color: #2364DB;
+    --progress-count-checked: 2;
+    --progress-count: 7;
+    --fz: 12px;
+
+}
+/* Удаление первоначальных отступов */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: grid;
+}
+body * {
+    padding: 0;
+    margin: 0;
+}
+/*  Центрирование нашего фрейма */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* Стилизация фрейма */
+.quest {
+    display: flex;
+    gap: 2em;
+    font-size: var(--fz);
+    width: 743px;
+    height: 91px;
+    padding: 20px 10px;
+    border-radius: 10px;
+    color: white;
+    background-color: var(--main-color);
+    box-sizing: border-box;
+}
+.quest > section {
+    display: grid;
+    min-width: 60px;
+    align-items: center;
+    justify-content: center;
+}
+/* Стилизация Прогресс-бара*/
+.progress {
+    padding: 10px;
+}
+.progress p {
+    position: relative;
+    display: block;
+    z-index: 5;
+    font-size: 1.6em;
+}
+
+.progress p::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+    transform: translate(-32%,-35%);
+    border-radius: 999px;
+    transition: 1s background;
+    /* Сделано из исхода того, сколько у нас сделано тасков*/
+    background:
+            radial-gradient(closest-side, #3579F5 93%, transparent 88%),
+            conic-gradient(#fff calc(var(--progress-count-checked) / var(--progress-count) * 100%), #fff8 0% 10%);
+    z-index: -1;
+    box-sizing: border-box;
+}
+
+/* Стилизация информационной части */
+.infoBlock {
+    display: grid;
+    gap: 10px;
+}
+
+.infoBlock .title {
+    color: white;
+    background-color: #2364DB;
+    padding: 0 10px;
+    border-radius: 15px;
+    width: fit-content;
+}
+.infoBlock .statistic {
+    font-weight: bold;
+    font-size: 1.25em;
+    width: fit-content;
+}
+
+/* Стилизация последнего блока */
+.quest > section:last-child {
+    margin-left: auto;
+}
+button {
+    cursor: pointer;
+    background-color: #fff;
+    color: #3579F5;
+    font-size: 1.25em;
+    border-radius: 6px;
+    padding: 10px 32px;
+}
+

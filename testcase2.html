@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas width="1000" height="1000"></canvas>
+<ul></ul>
+<script>
+    const canvas = document.querySelector("canvas"),
+        ctx = canvas.getContext("2d"),
+        ul = document.querySelector("ul");
+    ctx.strokeStyle = "blue";
+    const data = [
+        {
+            length: 1665,
+            corner: 0
+        },
+        {
+            length: 947,
+            corner: 90
+        },
+        {
+            length: 557,
+            corner: 0
+        },
+        {
+            length: 1300,
+            corner: 90
+        },
+        {
+            length: 2225,
+            corner: 180
+        },
+        {
+            length: 2239,
+            corner: 270
+        }
+    ]
+    let resultData = [];
+    data.forEach(item => {
+        let x = resultData[resultData.length - 1]?.x || 0,
+            y = resultData[resultData.length - 1]?.y || 0;
+        switch (item.corner / 90) {
+            case 0:
+            case 2:
+                console.log((item.length / 10).toFixed(1))
+                x += (1 - item.corner / 90) * (item.length / 10).toFixed(1);
+                y += 0;
+                resultData.push({ x: x, y: y });
+                break;
+            case 1:
+            case 3:
+                x += 0;
+                y += (2 - item.corner / 90) * (item.length / 10).toFixed(1);
+                resultData.push({ x: x, y: y });
+                break;
+        }
+    })
+    let { x, y } = resultData[0];
+    drawData(0, 0, x, y, 1);
+    for (let i = 0; i < resultData.length - 1; i++) {
+        let { x, y } = resultData[i];
+        let x1 = resultData[i + 1].x
+        let y1 = resultData[i + 1].y
+        drawData(x, y, x1, y1, i + 2);
+
+    }
+    lastEl = resultData[resultData.length - 2]
+    ctx.strokeRect(lastEl.x + 10, lastEl.y + 10, Math.ceil(-lastEl.x + 5), Math.ceil(-lastEl.y));
+
+    function drawData(x, y, x1, y1,index) {
+        ctx.strokeRect(x + 10, y + 10, x1 > x || x1 < x ? (x1 - x + 5) : 5, y1 > y ? y1 - y + 5 : 5);
+        const li = document.createElement("li");
+        li.textContent = `Точка ${index}: ${x.toFixed(1)}, ${y.toFixed(1)}`
+        ul.append(li)
+    }
+</script>
+</body>
+</html>
